@@ -22,9 +22,9 @@ def calculate_rule_based_score(resume_skills, job):
     }
 
 
-def generate_recommendation(score: float) -> str:
+def generate_recommendation(score):
     if score >= 80:
         return "High match"
-    if score >= 60:
+    elif score >= 60:
         return "Medium match"
     return "Low match"

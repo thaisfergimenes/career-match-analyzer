@@ -50,3 +50,59 @@ def extract_skills(text: str) -> list[str]:
             found.append(canonical_skill)
 
     return sorted(found)
+
+
+def parse_pasted_jobs(raw_text: str) -> list[dict]:
+    """Parse multiple jobs from pasted text separated by ===JOB=== markers."""
+    jobs = []
+    blocks = [block.strip() for block in raw_text.split("===JOB===") if block.strip()]
+
+    for idx, block in enumerate(blocks, start=1):
+        lines = block.splitlines()
+
+        job = {
+            "id": idx,
+            "title": "",
+            "company": "",
+            "description": "",
+            "required_skills": [],
+            "nice_to_have": []
+        }
+
+        description_lines = []
+        in_description = False
+
+        for line in lines:
+            stripped = line.strip()
+
+            if stripped.startswith("Title:"):
+                job["title"] = stripped.replace("Title:", "", 1).strip()
+                in_description = False
+
+            elif stripped.startswith("Company:"):
+                job["company"] = stripped.replace("Company:", "", 1).strip()
+                in_description = False
+
+            elif stripped.startswith("Description:"):
+                desc_start = stripped.replace("Description:", "", 1).strip()
+                if desc_start:
+                    description_lines.append(desc_start)
+                in_description = True
+
+            elif stripped.startswith("Required skills:"):
+                skills = stripped.replace("Required skills:", "", 1).strip()
+                job["required_skills"] = [s.strip() for s in skills.split(",") if s.strip()]
+                in_description = False
+
+            elif stripped.startswith("Nice to have:"):
+                skills = stripped.replace("Nice to have:", "", 1).strip()
+                job["nice_to_have"] = [s.strip() for s in skills.split(",") if s.strip()]
+                in_description = False
+
+            elif in_description:
+                description_lines.append(stripped)
+
+        job["description"] = " ".join(description_lines).strip()
+        jobs.append(job)
+
+    return jobs

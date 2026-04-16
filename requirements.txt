@@ -1,6 +1,7 @@
-pydantic==2.7.1
+openai
+streamlit
 pypdf==6.10.1
 sentence-transformers
 scikit-learn
-streamlit
+pydantic==2.7.1
 numpy
