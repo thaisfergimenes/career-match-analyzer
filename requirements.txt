@@ -1,1 +1,6 @@
 pydantic==2.7.1
+pypdf==6.10.1
+sentence-transformers
+scikit-learn
+streamlit
+numpy

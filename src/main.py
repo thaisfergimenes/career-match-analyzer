@@ -1,17 +1,7 @@
 import json
-from matcher import calculate_match_score, generate_recommendation
-
-# Lista de skills conhecidas
-SKILL_LIBRARY = [
-    "Python", "SQL", "AWS", "ETL", "PostgreSQL", "MySQL",
-    "Docker", "Java", "Pandas", "Airflow", "Spark",
-    "REST API", "Machine Learning", "TensorFlow"
-]
-
-
-def load_resume(path):
-    with open(path, "r", encoding="utf-8") as file:
-        return file.read()
+from parser import load_resume, extract_skills
+from matcher import calculate_rule_based_score, generate_recommendation
+from semantic_matcher import compute_semantic_score
 
 
 def load_jobs(path):
@@ -19,48 +9,63 @@ def load_jobs(path):
         return json.load(file)
 
 
-def extract_skills(resume_text, skill_library):
-    resume_text_lower = resume_text.lower()
-    found_skills = []
-
-    for skill in skill_library:
-        if skill.lower() in resume_text_lower:
-            found_skills.append(skill)
-
-    return found_skills
+def build_job_text(job):
+    required = ", ".join(job.get("required_skills", []))
+    nice = ", ".join(job.get("nice_to_have", []))
+    return (
+        f"Title: {job['title']}\n"
+        f"Company: {job['company']}\n"
+        f"Description: {job['description']}\n"
+        f"Required skills: {required}\n"
+        f"Nice to have: {nice}"
+    )
 
 
 def main():
-    resume_path = "data/sample_resume.txt"
-    jobs_path = "data/jobs.json"
+    resume_path = "../data/sample_resume.txt"  # depois pode trocar para PDF
+    jobs_path = "../data/jobs.json"
 
     resume_text = load_resume(resume_path)
+    resume_skills = extract_skills(resume_text)
     jobs = load_jobs(jobs_path)
-
-    resume_skills = extract_skills(resume_text, SKILL_LIBRARY)
 
     results = []
 
     for job in jobs:
-        match = calculate_match_score(resume_skills, job)
-        match["recommendation"] = generate_recommendation(match["match_score"])
-        results.append(match)
+        rule_result = calculate_rule_based_score(resume_skills, job)
+        semantic_score = compute_semantic_score(resume_text, build_job_text(job))
+        final_score = round((0.65 * rule_result["rule_score"]) + (0.35 * semantic_score), 2)
 
-    # Ordenar por score
-    results = sorted(results, key=lambda x: x["match_score"], reverse=True)
+        results.append({
+            "job_id": job["id"],
+            "title": job["title"],
+            "company": job["company"],
+            "rule_score": rule_result["rule_score"],
+            "semantic_score": semantic_score,
+            "final_score": final_score,
+            "recommendation": generate_recommendation(final_score),
+            "matched_required": rule_result["matched_required"],
+            "matched_nice": rule_result["matched_nice"],
+            "missing_required": rule_result["missing_required"],
+            "missing_nice": rule_result["missing_nice"],
+        })
 
-    # Print bonito
+    results.sort(key=lambda x: x["final_score"], reverse=True)
+
     for result in results:
-        print("=" * 50)
+        print("=" * 60)
         print(f"Job: {result['title']} - {result['company']}")
-        print(f"Score: {result['match_score']}")
+        print(f"Rule Score: {result['rule_score']}")
+        print(f"Semantic Score: {result['semantic_score']}")
+        print(f"Final Score: {result['final_score']}")
         print(f"Recommendation: {result['recommendation']}")
-        print(f"Matched Skills: {result['matched_skills']}")
-        print(f"Missing Skills: {result['missing_skills']}")
+        print(f"Matched Required: {result['matched_required']}")
+        print(f"Matched Nice: {result['matched_nice']}")
+        print(f"Missing Required: {result['missing_required']}")
+        print(f"Missing Nice: {result['missing_nice']}")
 
-    # Salvar resultado
-    with open("results/matches.json", "w", encoding="utf-8") as f:
-        json.dump(results, f, indent=4)
+    with open("../results/matches.json", "w", encoding="utf-8") as f:
+        json.dump(results, f, indent=4, ensure_ascii=False)
 
 
 if __name__ == "__main__":
