@@ -26,7 +26,7 @@ The Career Match Analyzer helps users:
 - Handles aliases (e.g. "Postgres" → "PostgreSQL")
 
 ### 📊 Job Matching Engine
-- Rule-based scoring:
+Rule-based scoring:
   - Required skills (weighted higher)
   - Nice-to-have skills
 - Semantic similarity using embeddings (`sentence-transformers`)
@@ -37,7 +37,7 @@ Final Score = 65% rule-based + 35% semantic
 ```
 
 ### 🤖 AI Explanations
-- Uses LLM (OpenAI) to:
+Uses LLM (OpenAI) to:
 - Explain match quality
 - Highlight strengths
 - Identify skill gaps
@@ -108,6 +108,9 @@ Major upgrade:
 ```bash
 career-match-analyzer/
 │
+├── assets/
+│   ├── input.png
+|   └── results.png
 ├── data/
 │ ├── jobs.json
 │ └── sample_resume.txt
@@ -233,7 +236,12 @@ Data Engineer | AI Enthusiast
 Give it a star on GitHub ⭐
 
 ---
-
 ## 🖼️ Demo
 
-![App Screenshot](./assets/demo.png)
+Below is an example of the application analyzing a resume against job postings, showing skill matching, scoring, and recommendations.
+
+### 📥 Input
+![Input](./assets/input.png)
+
+### 📊 Results
+![Results](./assets/results.png)
