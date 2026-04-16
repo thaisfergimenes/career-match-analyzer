@@ -1,0 +1,84 @@
+[
+    {
+        "job_id": 5,
+        "title": "Junior Data Engineer",
+        "company": "StartData",
+        "match_score": 85.0,
+        "matched_skills": [
+            "Python",
+            "SQL",
+            "ETL",
+            "AWS"
+        ],
+        "missing_skills": [
+            "Airflow"
+        ],
+        "recommendation": "High match"
+    },
+    {
+        "job_id": 2,
+        "title": "Backend Developer",
+        "company": "DevSolutions",
+        "match_score": 76.67,
+        "matched_skills": [
+            "Java",
+            "MySQL",
+            "Docker",
+            "AWS"
+        ],
+        "missing_skills": [
+            "REST API"
+        ],
+        "recommendation": "Medium match"
+    },
+    {
+        "job_id": 1,
+        "title": "Data Engineer",
+        "company": "TechCorp",
+        "match_score": 70.0,
+        "matched_skills": [
+            "Python",
+            "SQL",
+            "AWS",
+            "ETL",
+            "PostgreSQL"
+        ],
+        "missing_skills": [
+            "Airflow",
+            "Spark"
+        ],
+        "recommendation": "Medium match"
+    },
+    {
+        "job_id": 3,
+        "title": "Data Analyst",
+        "company": "DataInsights",
+        "match_score": 70.0,
+        "matched_skills": [
+            "SQL",
+            "Python",
+            "Pandas"
+        ],
+        "missing_skills": [
+            "Power BI",
+            "Tableau"
+        ],
+        "recommendation": "Medium match"
+    },
+    {
+        "job_id": 4,
+        "title": "Machine Learning Engineer",
+        "company": "AI Labs",
+        "match_score": 53.33,
+        "matched_skills": [
+            "Python",
+            "AWS",
+            "Docker"
+        ],
+        "missing_skills": [
+            "Machine Learning",
+            "TensorFlow"
+        ],
+        "recommendation": "Low match"
+    }
+]

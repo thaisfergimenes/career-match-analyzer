@@ -1,0 +1,13 @@
+Thaís Fernanda Gimenes
+
+Data Engineer with experience in building data pipelines, ETL processes, and backend systems.
+
+Skills:
+Python, SQL, AWS, PostgreSQL, MySQL, ETL, Pandas, Docker, Java
+
+Experience:
+- Data Engineer at Intuitive Care
+- Software Developer at Alpha Sistemas
+
+Education:
+- Degree in Information Technology Management

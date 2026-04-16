@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "title": "Data Engineer",
+    "company": "TechCorp",
+    "description": "Looking for a Data Engineer with strong Python, SQL, AWS and ETL experience.",
+    "required_skills": ["Python", "SQL", "AWS", "ETL", "PostgreSQL"],
+    "nice_to_have": ["Airflow", "Spark"]
+  },
+  {
+    "id": 2,
+    "title": "Backend Developer",
+    "company": "DevSolutions",
+    "description": "Backend developer with Java, REST APIs and MySQL.",
+    "required_skills": ["Java", "MySQL", "REST API"],
+    "nice_to_have": ["Docker", "AWS"]
+  },
+  {
+    "id": 3,
+    "title": "Data Analyst",
+    "company": "DataInsights",
+    "description": "Analyze datasets using SQL, Python and visualization tools.",
+    "required_skills": ["SQL", "Python", "Pandas"],
+    "nice_to_have": ["Power BI", "Tableau"]
+  },
+  {
+    "id": 4,
+    "title": "Machine Learning Engineer",
+    "company": "AI Labs",
+    "description": "ML Engineer with Python, TensorFlow and data pipelines.",
+    "required_skills": ["Python", "Machine Learning", "TensorFlow"],
+    "nice_to_have": ["AWS", "Docker"]
+  },
+  {
+    "id": 5,
+    "title": "Junior Data Engineer",
+    "company": "StartData",
+    "description": "Junior position focusing on ETL, SQL and Python.",
+    "required_skills": ["Python", "SQL", "ETL"],
+    "nice_to_have": ["AWS", "Airflow"]
+  }
+]
